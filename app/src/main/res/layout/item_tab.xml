@@ -1,0 +1,7 @@
+<ImageView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/tab3_selector"
+    android:id="@+id/icon"
+    android:layout_width="80dp"
+    android:layout_height="80dp"
+    android:scaleType="fitXY"/>

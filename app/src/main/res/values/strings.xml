@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">tenminute</string>
+    <string name="birth_string">생년월일</string>
+</resources>
