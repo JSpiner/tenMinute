@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.noname.tenminute.R;
+
 /**
  * Created by PJC on 2017-07-30.
  */
@@ -15,7 +17,8 @@ public class EvaluateFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View rootView = inflater.inflate(R.layout.fragment_evaluate, container, false);
+        return rootView;
     }
 
 }

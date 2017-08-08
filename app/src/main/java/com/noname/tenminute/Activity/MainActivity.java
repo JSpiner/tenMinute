@@ -10,6 +10,7 @@ import com.noname.tenminute.Fragment.ChatFragment;
 import com.noname.tenminute.Fragment.EvaluateFragment;
 import com.noname.tenminute.Fragment.HomeFragment;
 import com.noname.tenminute.Fragment.LogFragment;
+import com.noname.tenminute.Fragment.SettingFragment;
 import com.noname.tenminute.R;
 
 import butterknife.BindView;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         tabAdapter.addFragment(new LogFragment());
         tabAdapter.addFragment(new EvaluateFragment());
         tabAdapter.addFragment(new ChatFragment());
-        tabAdapter.addFragment(new ChatFragment());
+        tabAdapter.addFragment(new SettingFragment());
 
         mPager.setAdapter(tabAdapter);
         mTabLayout.setupWithViewPager(mPager);
