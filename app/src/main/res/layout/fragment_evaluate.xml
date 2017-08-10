@@ -6,7 +6,7 @@
     <ImageView
         android:background="@drawable/ex_user_profile"
         android:layout_width="match_parent"
-        android:layout_height="300dp" />
+        android:layout_height="200dp" />
 
     <View
         android:layout_width="match_parent"
@@ -116,6 +116,41 @@
                 />
 
         </com.google.android.flexbox.FlexboxLayout>
+
+        <LinearLayout
+            android:gravity="center"
+            android:padding="10dp"
+            android:background="#ededed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:background="@drawable/evaluation_star_on"
+                android:layout_width="32dp"
+                android:layout_height="32dp" />
+
+            <ImageView
+                android:background="@drawable/evaluation_star_on"
+                android:layout_width="32dp"
+                android:layout_height="32dp" />
+
+            <ImageView
+                android:background="@drawable/evaluation_star_on"
+                android:layout_width="32dp"
+                android:layout_height="32dp" />
+
+            <ImageView
+                android:background="@drawable/evaluation_star_on"
+                android:layout_width="32dp"
+                android:layout_height="32dp" />
+
+            <ImageView
+                android:background="@drawable/evaluation_star_on"
+                android:layout_width="32dp"
+                android:layout_height="32dp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
