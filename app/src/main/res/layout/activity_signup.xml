@@ -5,187 +5,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.noname.tenminute.SignupActivity">
+    tools:context="com.noname.tenminute.Activity.SignupActivity">
 
     <include
         layout="@layout/actionbar_back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <ScrollView
-        android:padding="20dp"
+    <LinearLayout
+        android:padding="10dp"
+        android:gravity="end"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/state_dot"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/step_1_ing"
+            android:layout_width="18dp"
+            android:layout_height="18dp" />
+
+        <ImageView
+            android:id="@+id/state_dot2"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/step_2_wait"
+            android:layout_width="18dp"
+            android:layout_height="18dp" />
+
+        <ImageView
+            android:id="@+id/state_dot3"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/step_3_wait"
+            android:layout_width="18dp"
+            android:layout_height="18dp" />
+
+        <ImageView
+            android:id="@+id/state_dot4"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/step_4_wait"
+            android:layout_width="18dp"
+            android:layout_height="18dp" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/frame"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:text="닉네임"
-                android:textStyle="bold"
-                android:textColor="@color/Gray"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <EditText
-                android:layout_marginBottom="10dp"
-                android:textSize="16sp"
-                android:hint="사용하실 닉네임을 입력해주세요."
-                android:background="@drawable/edittext_default"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:text="성별"
-                android:textStyle="bold"
-                android:textColor="@color/Gray"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <RadioGroup
-                android:layout_marginBottom="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:gravity="center"
-                        android:text="남자"
-                        android:background="@drawable/radio_button_sex_selector"
-                        android:button="@android:color/transparent"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content" />
-
-                    <RadioButton
-                        android:gravity="center"
-                        android:text="여자"
-                        android:background="@drawable/radio_button_sex_selector"
-                        android:button="@android:color/transparent"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
-
-            </RadioGroup>
-
-            <TextView
-                android:text="생년월일"
-                android:textStyle="bold"
-                android:textColor="@color/Gray"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                
-                <org.angmarch.views.NiceSpinner
-                    android:layout_marginRight="5dp"
-                    android:id="@+id/spiner_birth"
-                    android:layout_width="0dp"
-                    android:layout_height="35dp"
-                    android:layout_weight="1"></org.angmarch.views.NiceSpinner>
-
-                <org.angmarch.views.NiceSpinner
-                    android:layout_marginRight="5dp"
-                    android:layout_width="0dp"
-                    android:layout_height="35dp"
-                    android:layout_weight="1"></org.angmarch.views.NiceSpinner>
-
-                <org.angmarch.views.NiceSpinner
-                    android:layout_width="0dp"
-                    android:layout_height="35dp"
-                    android:layout_weight="1"></org.angmarch.views.NiceSpinner>
-                
-            </LinearLayout>
-
-            <TextView
-                android:text="키"
-                android:textStyle="bold"
-                android:textColor="@color/Gray"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <org.angmarch.views.NiceSpinner
-                android:layout_marginBottom="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"></org.angmarch.views.NiceSpinner>
-
-            <TextView
-                android:text="체형"
-                android:textStyle="bold"
-                android:textColor="@color/Gray"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <org.angmarch.views.NiceSpinner
-                android:layout_marginBottom="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"></org.angmarch.views.NiceSpinner>
-
-            <TextView
-                android:text="지역"
-                android:textStyle="bold"
-                android:textColor="@color/Gray"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <org.angmarch.views.NiceSpinner
-                android:layout_marginBottom="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"></org.angmarch.views.NiceSpinner>
-
-            <TextView
-                android:text="직업"
-                android:textStyle="bold"
-                android:textColor="@color/Gray"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <EditText
-                android:layout_marginBottom="10dp"
-                android:textSize="16sp"
-                android:hint="직업을 입력해주세요."
-                android:background="@drawable/edittext_default"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:text="직장 또는 학교명"
-                android:textStyle="bold"
-                android:textColor="@color/Gray"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <EditText
-                android:layout_marginBottom="10dp"
-                android:textSize="16sp"
-                android:hint="직장 또는 학교명을 입력해주세요."
-                android:background="@drawable/edittext_default"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-    </ScrollView>
-
-    <Button
-        android:textStyle="bold"
-        android:textColor="@color/White"
-        android:background="@color/AppColor"
-        android:text="다음"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_weight="1"></FrameLayout>
 
 </LinearLayout>
