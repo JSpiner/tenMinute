@@ -8,7 +8,7 @@
         android:textStyle="bold"
         android:textColor="@color/AppColor"
         android:gravity="center"
-        android:text="대화를 위해 흥미있는 관심사나\n취미 3가지를 선택해주세요."
+        android:text="체형을 선택해주세요."
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:paddingTop="20dp"
@@ -22,25 +22,10 @@
         android:layout_marginBottom="10dp"
         android:layout_height="1px"/>
 
-    <com.google.android.flexbox.FlexboxLayout
-        android:padding="10dp"
-        android:id="@+id/flexbox"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:flexWrap="wrap"
-        app:alignItems="stretch"
-        app:alignContent="stretch" >
 
-    </com.google.android.flexbox.FlexboxLayout>
-
-    <Button
-        android:id="@+id/btn_ok"
-        android:textStyle="bold"
-        android:textColor="@color/White"
-        android:background="@color/AppColor"
-        android:text="확인"
+    <ListView
+        android:id="@+id/lv_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"></ListView>
 
 </LinearLayout>

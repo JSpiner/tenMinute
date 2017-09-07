@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#ff4770"
+    android:gravity="center"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.noname.tenminute.Activity.AwaitApprovalActivity">
+
+    <TextView
+        android:layout_marginBottom="25dp"
+        android:textSize="17sp"
+        android:text="가입을 승인중입니다:)"
+        android:textColor="@color/White"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_marginBottom="30dp"
+        android:id="@+id/imv_profile"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
+    <Button
+        android:textColor="@color/White"
+        android:textStyle="bold"
+        android:text="프로필 변경하기"
+        android:background="#3d3d3d"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

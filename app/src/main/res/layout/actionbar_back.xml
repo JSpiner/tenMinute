@@ -9,13 +9,14 @@
         android:id="@+id/btn_back"
         android:layout_gravity="center"
         android:background="@drawable/btn_navi_back"
-        android:layout_width="16dp"
+        android:layout_width="13dp"
         android:layout_height="20dp" />
 
     <TextView
         android:id="@+id/tv_title"
         android:textStyle="bold"
         android:textColor="@color/White"
+        android:textSize="18sp"
         android:text="회원가입"
         android:gravity="center"
         android:layout_width="match_parent"

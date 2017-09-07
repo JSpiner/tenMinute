@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:padding="20dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textColor="@color/Black"
+            android:text="대화를 위한 내용이니 성의있게 답편해주세요:)"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textColor="@color/Black"
+            android:layout_marginTop="20dp"
+            android:textSize="16sp"
+            android:text="1. 여행"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textSize="13sp"
+            android:text="가장 좋았던 여행은 언제, 어디로 간 여행이였나요?"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:textSize="13sp"
+            android:padding="10dp"
+            android:background="@drawable/spiner_default"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:textColor="@color/Black"
+            android:layout_marginTop="20dp"
+            android:textSize="16sp"
+            android:text="2. 음악감상"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textSize="13sp"
+            android:text="가장 좋아하는 가수 또는 노래는 무엇인가요?"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:textSize="13sp"
+            android:padding="10dp"
+            android:background="@drawable/spiner_default"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:textColor="@color/Black"
+            android:layout_marginTop="20dp"
+            android:textSize="16sp"
+            android:text="3. 영화"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textSize="13sp"
+            android:text="인생 영화라고 생각하는 영화는 무엇인가요?"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:textSize="13sp"
+            android:padding="10dp"
+            android:background="@drawable/spiner_default"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_next"
+        android:background="@color/AppColor"
+        android:textStyle="bold"
+        android:textColor="@color/White"
+        android:text="다음"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

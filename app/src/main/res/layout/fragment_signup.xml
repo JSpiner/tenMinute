@@ -26,9 +26,27 @@
                 android:layout_height="wrap_content" />
 
             <EditText
+                android:id="@+id/et_email"
                 android:layout_marginBottom="10dp"
                 android:textSize="16sp"
                 android:hint="사용하실 닉네임을 입력해주세요."
+                android:background="@drawable/edittext_default"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="패스워드"
+                android:textStyle="bold"
+                android:textColor="@color/Gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:inputType="textPassword"
+                android:id="@+id/et_password"
+                android:layout_marginBottom="10dp"
+                android:textSize="16sp"
+                android:hint="사용하실 패스워드를 입력해주세요."
                 android:background="@drawable/edittext_default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -53,20 +71,22 @@
                     <RadioButton
                         android:gravity="center"
                         android:text="남자"
+                        android:textColor="@color/Gray"
                         android:background="@drawable/radio_button_sex_selector"
                         android:button="@android:color/transparent"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="40dp" />
 
                     <RadioButton
                         android:gravity="center"
                         android:text="여자"
+                        android:textColor="@color/Gray"
                         android:background="@drawable/radio_button_sex_selector"
                         android:button="@android:color/transparent"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="40dp" />
 
                 </LinearLayout>
 
@@ -85,23 +105,28 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <org.angmarch.views.NiceSpinner
+                <Spinner
+                    android:background="@drawable/spiner_default"
                     android:layout_marginRight="5dp"
-                    android:id="@+id/spiner_birth"
+                    android:id="@+id/spiner_birth_year"
                     android:layout_width="0dp"
-                    android:layout_height="35dp"
-                    android:layout_weight="1"></org.angmarch.views.NiceSpinner>
+                    android:layout_height="40dp"
+                    android:layout_weight="1"></Spinner>
 
-                <org.angmarch.views.NiceSpinner
+                <Spinner
+                    android:id="@+id/spiner_birth_month"
+                    android:background="@drawable/spiner_default"
                     android:layout_marginRight="5dp"
                     android:layout_width="0dp"
-                    android:layout_height="35dp"
-                    android:layout_weight="1"></org.angmarch.views.NiceSpinner>
+                    android:layout_height="40dp"
+                    android:layout_weight="1"></Spinner>
 
-                <org.angmarch.views.NiceSpinner
+                <Spinner
+                    android:id="@+id/spiner_birth_day"
+                    android:background="@drawable/spiner_default"
                     android:layout_width="0dp"
-                    android:layout_height="35dp"
-                    android:layout_weight="1"></org.angmarch.views.NiceSpinner>
+                    android:layout_height="40dp"
+                    android:layout_weight="1"></Spinner>
 
             </LinearLayout>
 
@@ -112,10 +137,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <org.angmarch.views.NiceSpinner
+            <Spinner
+                android:background="@drawable/spiner_default"
+                android:id="@+id/spinner_height"
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"></org.angmarch.views.NiceSpinner>
+                android:layout_height="40dp"></Spinner>
 
             <TextView
                 android:text="체형"
@@ -124,10 +151,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <org.angmarch.views.NiceSpinner
+            <TextView
+                android:gravity="center"
+                android:background="@drawable/spiner_default"
+                android:id="@+id/spinner_body_type"
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"></org.angmarch.views.NiceSpinner>
+                android:layout_height="40dp"></TextView>
+
+            <TextView
+                android:text="관심사"
+                android:textStyle="bold"
+                android:textColor="@color/Gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btn_like"
+                android:layout_marginBottom="10dp"
+                android:background="@color/AppColor"
+                android:textColor="@color/White"
+                android:text="관심사"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:text="지역"
@@ -136,10 +182,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <org.angmarch.views.NiceSpinner
+            <Spinner
+                android:background="@drawable/spiner_default"
+                android:id="@+id/spinner_region"
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"></org.angmarch.views.NiceSpinner>
+                android:layout_height="40dp"></Spinner>
 
             <TextView
                 android:text="직업"
@@ -149,6 +197,7 @@
                 android:layout_height="wrap_content" />
 
             <EditText
+                android:id="@+id/et_job"
                 android:layout_marginBottom="10dp"
                 android:textSize="16sp"
                 android:hint="직업을 입력해주세요."
@@ -164,6 +213,7 @@
                 android:layout_height="wrap_content" />
 
             <EditText
+                android:id="@+id/et_job_place"
                 android:layout_marginBottom="10dp"
                 android:textSize="16sp"
                 android:hint="직장 또는 학교명을 입력해주세요."

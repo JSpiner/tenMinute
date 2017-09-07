@@ -14,6 +14,8 @@ import com.noname.tenminute.Adapter.SettingAdapter;
 import com.noname.tenminute.R;
 import com.noname.tenminute.Util.ViewUtil;
 
+import org.angmarch.views.NiceSpinner;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
