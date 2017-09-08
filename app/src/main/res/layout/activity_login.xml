@@ -53,6 +53,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/tv_signup"
             android:gravity="end"
             android:textSize="13sp"
             android:textColor="@color/Gray"

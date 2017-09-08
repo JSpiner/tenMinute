@@ -8,7 +8,9 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.noname.tenminute.Activity.AwaitApprovalActivity;
 import com.noname.tenminute.Activity.MainActivity;
+import com.noname.tenminute.Activity.SignupActivity;
 import com.noname.tenminute.HttpSerivce.User;
 import com.noname.tenminute.Model.BaseModel;
 import com.noname.tenminute.Util.HttpUtil;
@@ -44,8 +46,13 @@ public class LoginActivity extends AppCompatActivity {
                 public void success(BaseModel baseModel, Response response) {
                     Log.d("tag", baseModel.code + "");
                     if(baseModel.code == 1) {
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
+                        if(baseModel.message.equals("1")) {
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(LoginActivity.this, AwaitApprovalActivity.class);
+                            startActivity(intent);
+                        }
                     } else {
                         Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
                     }
@@ -57,5 +64,11 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @OnClick(R.id.tv_signup)
+    void goRegister() {
+        Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+        startActivity(intent);
     }
 }
