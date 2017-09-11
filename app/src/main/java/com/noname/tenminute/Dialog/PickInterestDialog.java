@@ -34,7 +34,12 @@ public class PickInterestDialog extends BaseDialog {
     @BindView(R.id.flexbox)
     FlexboxLayout flexboxLayout;
 
+    PickInterestInterface pickBodyTypeInterface;
     SignupActivity.RegisterParams registerParams;
+
+    public interface PickInterestInterface {
+        void onFinish();
+    }
 
     @Nullable
     @Override
@@ -49,6 +54,10 @@ public class PickInterestDialog extends BaseDialog {
         return rootView;
     }
 
+    public void setInterface(PickInterestInterface pickBodyTypeInterface) {
+        this.pickBodyTypeInterface = pickBodyTypeInterface;
+    }
+
     @OnClick(R.id.btn_ok)
     void ok() {
         registerParams.selectInterest.clear();
@@ -57,6 +66,7 @@ public class PickInterestDialog extends BaseDialog {
             registerParams.selectInterest.add(Integer.parseInt((String)checkBox.getTag()));
         }
         dismiss();
+        pickBodyTypeInterface.onFinish();
     }
 
     private void getInterest() {

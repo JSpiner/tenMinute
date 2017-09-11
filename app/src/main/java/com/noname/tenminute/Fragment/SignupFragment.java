@@ -72,6 +72,14 @@ public class SignupFragment extends BaseFragment {
     @BindView(R.id.spiner_birth_day)
     Spinner spinnerDay;
 
+    @BindView(R.id.spinner_drink)
+    Spinner spinnerDrink;
+
+    @BindView(R.id.spinner_smoke)
+    Spinner spinnerSmoke;
+
+    int bodyType = 0;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -102,6 +110,19 @@ public class SignupFragment extends BaseFragment {
         }
         spinnerDay.setAdapter(dayAdapter);
 
+        // Attach Drink Adapter
+        SpinnerDropdownAdapter drinkAdapter = new SpinnerDropdownAdapter(getActivity());
+        drinkAdapter.addItem("전혀안함");
+        drinkAdapter.addItem("어쩔 수 없을 때");
+        drinkAdapter.addItem("가끔");
+        drinkAdapter.addItem("자주");
+        spinnerDrink.setAdapter(drinkAdapter);
+
+        SpinnerDropdownAdapter smokeAdapter = new SpinnerDropdownAdapter(getActivity());
+        smokeAdapter.addItem("안함");
+        smokeAdapter.addItem("흡연함");
+        spinnerSmoke.setAdapter(smokeAdapter);
+
         getRegionList();
         return rootView;
     }
@@ -111,8 +132,9 @@ public class SignupFragment extends BaseFragment {
         PickBodyTypeDialog pickBodyTypeDialog = new PickBodyTypeDialog();
         pickBodyTypeDialog.setPickBodyTypeInterface(new PickBodyTypeDialog.PickBodyTypeInterface() {
             @Override
-            public void selectItem(String item) {
+            public void selectItem(String item, int position) {
                 tvBodyType.setText(item);
+                bodyType = position;
             }
         });
         pickBodyTypeDialog.show(getFragmentManager(), "SHOW");
@@ -120,38 +142,43 @@ public class SignupFragment extends BaseFragment {
 
     @OnClick(R.id.btn_like)
     void btnLike() {
-        PickInterestDialog pickInterestDialog = new PickInterestDialog();
-        pickInterestDialog.show(getFragmentManager(), "SHOW");
     }
 
     @OnClick(R.id.btn_next)
     void btnNext() {
-        HttpUtil.api(User.class).check_username(etUserName.getText().toString(), new Callback<BaseModel>() {
+        PickInterestDialog pickInterestDialog = new PickInterestDialog();
+        pickInterestDialog.setInterface(new PickInterestDialog.PickInterestInterface() {
             @Override
-            public void success(BaseModel baseModel, Response response) {
-                if(baseModel.code == 1) {
-                    ((SignupActivity) getActivity()).changeScreen(getArguments().getInt("FNUM")+1);
-                    ((SignupActivity) getActivity()).getRegisterObject().userId = etUserName.getText().toString();
-                    ((SignupActivity) getActivity()).getRegisterObject().userPassword = etPassword.getText().toString();
-                    ((SignupActivity) getActivity()).getRegisterObject().height = Integer.parseInt((String)spinnerHeight.getSelectedItem());
-                    ((SignupActivity) getActivity()).getRegisterObject().isDrink = true;
-                    ((SignupActivity) getActivity()).getRegisterObject().bodyType = 0;
-                    ((SignupActivity) getActivity()).getRegisterObject().bloodGroup = 0;
-                    ((SignupActivity) getActivity()).getRegisterObject().work = etJob.getText().toString();
-                    ((SignupActivity) getActivity()).getRegisterObject().workPlace = etJobPlace.getText().toString();
-                    ((SignupActivity) getActivity()).getRegisterObject().sex = true;
-                    ((SignupActivity) getActivity()).getRegisterObject().region = 0;
-                } else {
-                    Toast.makeText(getActivity(), "유저아이디가 중복됩니다.", Toast.LENGTH_SHORT).show();
-                }
-            }
+            public void onFinish() {
+                HttpUtil.api(User.class).check_username(etUserName.getText().toString(), new Callback<BaseModel>() {
+                    @Override
+                    public void success(BaseModel baseModel, Response response) {
+                        if(baseModel.code == 1) {
+                            ((SignupActivity) getActivity()).changeScreen(getArguments().getInt("FNUM")+1);
+                            ((SignupActivity) getActivity()).getRegisterObject().userId = etUserName.getText().toString();
+                            ((SignupActivity) getActivity()).getRegisterObject().userPassword = etPassword.getText().toString();
+                            ((SignupActivity) getActivity()).getRegisterObject().height = Integer.parseInt((String)spinnerHeight.getSelectedItem());
+                            ((SignupActivity) getActivity()).getRegisterObject().isDrink = spinnerDrink.getSelectedItemPosition();
+                            ((SignupActivity) getActivity()).getRegisterObject().bodyType = bodyType;
+                            ((SignupActivity) getActivity()).getRegisterObject().bloodGroup = 0;
+                            ((SignupActivity) getActivity()).getRegisterObject().work = etJob.getText().toString();
+                            ((SignupActivity) getActivity()).getRegisterObject().workPlace = etJobPlace.getText().toString();
+                            ((SignupActivity) getActivity()).getRegisterObject().sex = true;
+                            ((SignupActivity) getActivity()).getRegisterObject().region = 0;
+                        } else {
+                            Toast.makeText(getActivity(), "유저아이디가 중복됩니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
-            @Override
-            public void failure(RetrofitError error) {
-                error.printStackTrace();
-                Log.d("url", error.getUrl());
+                    @Override
+                    public void failure(RetrofitError error) {
+                        error.printStackTrace();
+                        Log.d("url", error.getUrl());
+                    }
+                });
             }
         });
+        pickInterestDialog.show(getFragmentManager(), "SHOW");
     }
 
     void getRegionList() {

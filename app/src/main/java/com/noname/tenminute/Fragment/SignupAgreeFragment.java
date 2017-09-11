@@ -17,6 +17,9 @@ import com.noname.tenminute.Model.BaseModel;
 import com.noname.tenminute.R;
 import com.noname.tenminute.Util.HttpUtil;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit.Callback;
@@ -39,6 +42,38 @@ public class SignupAgreeFragment extends BaseFragment {
     @OnClick(R.id.btn_next)
     void btnNext() {
         final SignupActivity.RegisterParams registerParams = ((SignupActivity)getActivity()).getRegisterObject();
+
+        HashMap<String, String> paramMap = new HashMap<>();
+        paramMap.put("profile.sex", "true");
+        paramMap.put("profile.height", "150");
+        paramMap.put("profile.nameWork", "dfd");
+        paramMap.put("profile.nameWorkplace", "dd");
+        paramMap.put("profile.bloodGroup", "1");
+        paramMap.put("profile.bodyType", "1");
+        paramMap.put("profile.isSmoke", "true");
+        paramMap.put("profile.drinkFreq", "1");
+
+        HttpUtil.api(User.class).signup_default(registerParams.userId, registerParams.userPassword, 0, paramMap, new Callback<BaseModel>() {
+            @Override
+            public void success(BaseModel baseModel, Response response) {
+                if(baseModel.code == 1) {
+                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("SAVE", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("username", registerParams.userId);
+                    editor.commit();
+
+                    Intent intent = new Intent(getActivity(), AwaitApprovalActivity.class);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
+
+        /*
         HttpUtil.api(User.class).signup_default(
                 registerParams.userId,
                 registerParams.userPassword,
@@ -67,6 +102,6 @@ public class SignupAgreeFragment extends BaseFragment {
                     public void failure(RetrofitError error) {
                         error.printStackTrace();
                     }
-                });
+                }); */
     }
 }

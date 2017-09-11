@@ -2,10 +2,14 @@ package com.noname.tenminute.HttpSerivce;
 
 import com.noname.tenminute.Model.AoorivalModel;
 import com.noname.tenminute.Model.BaseModel;
+import com.noname.tenminute.Model.LoginModel;
+
+import java.util.Map;
 
 import retrofit.Callback;
 import retrofit.client.Response;
 import retrofit.http.Field;
+import retrofit.http.FieldMap;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.Multipart;
@@ -19,15 +23,12 @@ import retrofit.http.Query;
 
 public interface User {
     @FormUrlEncoded
-    @POST("/signup/default/")
+    @POST("/register_user/")
     void signup_default(
             @Field("username") String id,
             @Field("password") String password,
-            @Field("profile.sex") Boolean sex,
-            @Field("profile.height") int height,
-            @Field("profile.region") int region,
-            @Field("profile.nameWork") String nameWork,
-            @Field("profile.nameWorkplace") String nameWorkplace,
+            @Field("profile.loginType") int loginType,
+            @FieldMap Map<String, String> params,
             Callback<BaseModel> callback
     );
 
@@ -47,6 +48,6 @@ public interface User {
     void login(
             @Query("username") String username,
             @Query("password") String password,
-            Callback<BaseModel> callback
+            Callback<LoginModel> callback
     );
 }

@@ -221,6 +221,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <TextView
+                android:text="음주여부"
+                android:textStyle="bold"
+                android:textColor="@color/Gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Spinner
+                android:background="@drawable/spiner_default"
+                android:layout_marginRight="5dp"
+                android:id="@+id/spinner_drink"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"></Spinner>
+
+            <TextView
+                android:text="흡연여부"
+                android:textStyle="bold"
+                android:textColor="@color/Gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Spinner
+                android:background="@drawable/spiner_default"
+                android:layout_marginRight="5dp"
+                android:id="@+id/spinner_smoke"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"></Spinner>
+
         </LinearLayout>
 
     </ScrollView>

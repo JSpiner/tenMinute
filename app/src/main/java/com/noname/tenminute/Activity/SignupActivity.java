@@ -146,7 +146,7 @@ public class SignupActivity extends AppCompatActivity {
         public int height;
         public int region;
         public Boolean sex;
-        public Boolean isDrink;
+        public int isDrink;
 
         // after register
         public File[] imageList = new File[6];

@@ -11,8 +11,10 @@ import android.widget.Toast;
 import com.noname.tenminute.Activity.AwaitApprovalActivity;
 import com.noname.tenminute.Activity.MainActivity;
 import com.noname.tenminute.Activity.SignupActivity;
+import com.noname.tenminute.Database.TokenObject;
 import com.noname.tenminute.HttpSerivce.User;
 import com.noname.tenminute.Model.BaseModel;
+import com.noname.tenminute.Model.LoginModel;
 import com.noname.tenminute.Util.HttpUtil;
 
 import butterknife.BindView;
@@ -41,28 +43,31 @@ public class LoginActivity extends AppCompatActivity {
     public void Login() {
         // CHECK INPUT
         if(!TextUtils.isEmpty(etEmail.getText().toString()) && !TextUtils.isEmpty(etPassword.getText().toString())) {
-            HttpUtil.api(User.class).login(etEmail.getText().toString(), etPassword.getText().toString(), new Callback<BaseModel>() {
+            HttpUtil.api(User.class).login(etEmail.getText().toString(), etPassword.getText().toString(), new Callback<LoginModel>() {
                 @Override
-                public void success(BaseModel baseModel, Response response) {
-                    Log.d("tag", baseModel.code + "");
-                    if(baseModel.code == 1) {
-                        if(baseModel.message.equals("1")) {
+                public void success(LoginModel loginModel, Response response) {
+                    if(loginModel.code == 1) {
+                        TokenObject.getInstance().setToken(loginModel.token);
+                        if(loginModel.profile.approval) {
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
+                            finish();
                         } else {
                             Intent intent = new Intent(LoginActivity.this, AwaitApprovalActivity.class);
                             startActivity(intent);
                         }
                     } else {
-                        Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "아이디 또는 패스워드가 올바르지 않습니다.", Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void failure(RetrofitError error) {
-
+                    error.printStackTrace();
                 }
             });
+        } else {
+            Toast.makeText(LoginActivity.this, "빈칸을 입력해주세요.", Toast.LENGTH_SHORT).show();
         }
     }
 

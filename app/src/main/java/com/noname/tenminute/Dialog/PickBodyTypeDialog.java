@@ -29,7 +29,7 @@ public class PickBodyTypeDialog extends BaseDialog {
     DialogSelectAdapter dialogSelectAdapter;
 
     public interface PickBodyTypeInterface {
-        void selectItem(String item);
+        void selectItem(String item, int position);
     }
 
     public void setPickBodyTypeInterface(PickBodyTypeInterface pickBodyTypeInterface) {
@@ -53,7 +53,7 @@ public class PickBodyTypeDialog extends BaseDialog {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                pickBodyTypeInterface.selectItem(dialogSelectAdapter.mList.get(i));
+                pickBodyTypeInterface.selectItem(dialogSelectAdapter.mList.get(i), i);
                 ((SignupActivity)getActivity()).getRegisterObject().bodyType = i;
                 dismiss();
             }
