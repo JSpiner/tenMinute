@@ -82,7 +82,9 @@ public class HomeFragment extends BaseFragment {
         showToast("통화연결이 취소되었습니다.");
 
         tvWaiting.setVisibility(View.INVISIBLE);
-        loadinDisposable.dispose();
+        if(loadinDisposable != null) {
+            loadinDisposable.dispose();
+        }
     }
 
     private String repeat(String text, int count) {
