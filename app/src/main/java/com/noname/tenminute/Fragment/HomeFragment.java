@@ -12,6 +12,10 @@ import com.noname.tenminute.R;
 
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
+import org.webrtc.AudioSource;
+import org.webrtc.AudioTrack;
+import org.webrtc.MediaConstraints;
+import org.webrtc.PeerConnectionFactory;
 
 import java.util.concurrent.TimeUnit;
 
@@ -52,6 +56,7 @@ public class HomeFragment extends BaseFragment {
             stopLoadingText();
         } else {
             startLoadingText();
+            startConnection();
         }
 
         isCalling = !isCalling;
@@ -93,5 +98,18 @@ public class HomeFragment extends BaseFragment {
             builder.append(text);
         }
         return builder.toString();
+    }
+
+    private void startConnection(){
+        PeerConnectionFactory.initializeAndroidGlobals(
+                getContext(),
+                true,
+                false,
+                false,
+                null
+        );
+
+        PeerConnectionFactory peerConnectionFactory = new PeerConnectionFactory();
+        
     }
 }
