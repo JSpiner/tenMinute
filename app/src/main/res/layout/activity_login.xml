@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="30dp"
-    tools:context="com.noname.tenminute.LoginActivity">
+    tools:context="com.noname.tenminute.Activity.LoginActivity">
 
     <ImageView
         android:layout_gravity="center"
@@ -29,6 +29,7 @@
             android:paddingBottom="20dp"
             android:textColorHint="@color/Silver"
             android:hint="이메일을 입력해주세요."
+            android:text="dimigo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -38,6 +39,7 @@
             android:id="@+id/et_password"
             android:inputType="textPassword"
             android:layout_width="match_parent"
+            android:text="1111"
             android:layout_height="wrap_content"
             android:hint="비밀번호를 입력해주세요."
             android:paddingBottom="20dp" />

@@ -1,20 +1,16 @@
-package com.noname.tenminute;
+package com.noname.tenminute.Activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.noname.tenminute.Activity.AwaitApprovalActivity;
-import com.noname.tenminute.Activity.MainActivity;
-import com.noname.tenminute.Activity.SignupActivity;
 import com.noname.tenminute.Database.TokenObject;
 import com.noname.tenminute.HttpSerivce.User;
-import com.noname.tenminute.Model.BaseModel;
 import com.noname.tenminute.Model.LoginModel;
+import com.noname.tenminute.R;
 import com.noname.tenminute.Util.HttpUtil;
 
 import butterknife.BindView;
@@ -50,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
                         TokenObject.getInstance().setToken(loginModel.token);
                         if(loginModel.profile.approval) {
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            intent.putExtra("profile", loginModel.profile);
+                            intent.putExtra("username", etEmail.getText().toString());
                             startActivity(intent);
                             finish();
                         } else {

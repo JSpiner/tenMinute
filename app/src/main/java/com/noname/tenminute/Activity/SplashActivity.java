@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.noname.tenminute.R;
 
@@ -39,24 +38,26 @@ public class SplashActivity extends AppCompatActivity {
 
     private void checkPermission() {
         if (isAllPermissionGranted()) {
-            startMainActivity();
+            startLoginActivity();
         } else {
             requestPermission();
         }
     }
 
-    private void startMainActivity() {
+    private void startLoginActivity() {
         Observable.create(
                 emitter -> emitter.onNext(
-                        new Intent(SplashActivity.this, MainActivity.class)
+                        new Intent(SplashActivity.this, LoginActivity.class)
                 )
         ).delay(
                 1000,
                 TimeUnit.MILLISECONDS
-        ).subscribe(intent -> {
-            startActivity((Intent) intent);
-            finish();
-        });
+        ).subscribe(intent -> startActivityAndFinish((Intent) intent));
+    }
+
+    private void startActivityAndFinish(Intent intent){
+        startActivity(intent);
+        finish();
     }
 
     private boolean isAllPermissionGranted() {
