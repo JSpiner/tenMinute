@@ -17,13 +17,24 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <ImageView
-            android:id="@+id/imv_call"
+        <TextView
             android:layout_gravity="center"
-            android:background="@drawable/main_call_btn"
+            android:text="통화 연결중..."
+            android:textColor="@color/Black"
+            android:textSize="20dp"
+            android:visibility="invisible"
+            android:id="@+id/tv_home_waiting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_marginTop="40dp"
+            android:id="@+id/imv_call"
             android:layout_width="128dp"
-            android:layout_height="128dp" />
-        
+            android:layout_height="128dp"
+            android:layout_gravity="center"
+            android:background="@drawable/main_call_btn" />
+
         <Button
             android:id="@+id/btn_set_if"
             android:layout_marginTop="25dp"
