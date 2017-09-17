@@ -1,5 +1,7 @@
 package com.noname.tenminute.Fragment;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.noname.tenminute.Model.IceCandidateModel;
 import com.noname.tenminute.Model.JoinModel;
 import com.noname.tenminute.Model.MatchModel;
 import com.noname.tenminute.Model.OfferModel;
@@ -27,6 +30,7 @@ import org.webrtc.PeerConnection;
 import org.webrtc.PeerConnectionFactory;
 import org.webrtc.SdpObserver;
 import org.webrtc.SessionDescription;
+import org.webrtc.VideoTrack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,18 +94,19 @@ public class HomeFragment extends BaseFragment {
         initSocketEvents();
     }
 
-    private void initSocketEvents(){
+    private void initSocketEvents() {
         SockerIO.on(SockerIO.EVENT_MATCHING, this::onMatching);
         SockerIO.on(SockerIO.EVENT_OFFER, this::onOffer);
         SockerIO.on(SockerIO.EVENT_ANSWER, this::onAnswer);
+        SockerIO.on(SockerIO.EVENT_ICECANDIDATE, this::onIceCandidate);
     }
 
-    private void onMatching(Object[] args){
+    private void onMatching(Object[] args) {
         Log.d(TAG, "onMatching " + args[0].toString());
         MatchModel matchModel = new Gson().fromJson(args[0].toString(), MatchModel.class);
         this.matchModel = matchModel;
         Log.d(TAG, new Gson().toJson(matchModel));
-        switch (matchModel.requestType){
+        switch (matchModel.requestType) {
             case "Offer":
                 setOfferProcess();
                 break;
@@ -113,24 +118,29 @@ public class HomeFragment extends BaseFragment {
         }
     }
 
-    private void onOffer(Object[] args){
+    private void onOffer(Object[] args) {
         Log.d(TAG, "onOffer " + args[0].toString());
         OfferModel offerModel = new Gson().fromJson(args[0].toString(), OfferModel.class);
         setRemoteDescription(offerModel.sdp);
     }
 
-    private void onAnswer(Object[] args){
+    private void onAnswer(Object[] args) {
         Log.d(TAG, "onAnswer " + args[0].toString());
         OfferModel offerModel = new Gson().fromJson(args[0].toString(), OfferModel.class);
         setRemoteDescription(offerModel.sdp);
-
     }
 
-    private void setOfferProcess(){
+    private void onIceCandidate(Object[] args) {
+        Log.d(TAG, "onIceCandidate " + args[0].toString());
+        IceCandidateModel iceCandidateModel = new Gson().fromJson(args[0].toString(), IceCandidateModel.class);
+        peerConnection.addIceCandidate(iceCandidateModel.iceCandidate);
+    }
+
+    private void setOfferProcess() {
         createOffer();
     }
 
-    private void setAnswerProcess(){
+    private void setAnswerProcess() {
         //answer일 경우 대기함
     }
 
@@ -147,6 +157,9 @@ public class HomeFragment extends BaseFragment {
 
         AudioSource audioSource = peerConnectionFactory.createAudioSource(getAudioConstraints());
         AudioTrack localAudioTrack = peerConnectionFactory.createAudioTrack("audioPN", audioSource);
+        if(audioSource == null || localAudioTrack == null){
+            throw new NullPointerException("시발 오디오 ");
+        }
 
         MediaStream mediaStream = peerConnectionFactory.createLocalMediaStream("localStreamPN");
         mediaStream.addTrack(localAudioTrack);
@@ -180,13 +193,25 @@ public class HomeFragment extends BaseFragment {
 
                     @Override
                     public void onIceCandidate(IceCandidate iceCandidate) {
-                        Log.d(TAG, "onIceCandidate");
-
+                        Log.d(TAG, "onIceCandidate : " + new Gson().toJson(iceCandidate));
+                        SockerIO.emit(
+                                SockerIO.EVENT_ICECANDIDATE,
+                                new IceCandidateModel(
+                                        matchModel.username,
+                                        iceCandidate
+                                )
+                        );
                     }
 
                     @Override
                     public void onAddStream(MediaStream mediaStream) {
-                        Log.d(TAG, "onAddStream");
+                        Log.d(TAG, "onAddStream : " + mediaStream.label());
+                        mediaStream.audioTracks.get(0);
+                        AudioTrack audioTrack;
+                        VideoTrack videoTrack;
+                        AudioManager audioManager = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
+                        audioManager.setSpeakerphoneOn(true);
+
 
                     }
 
@@ -209,13 +234,15 @@ public class HomeFragment extends BaseFragment {
                     }
                 }
         );
+        peerConnection.addStream(mediaStream);
 
         join();
 
     }
 
-    private void stopConnection(){
+    private void stopConnection() {
         SockerIO.disconnect();
+        peerConnection.close();
     }
 
     private void createOffer() {
@@ -228,6 +255,13 @@ public class HomeFragment extends BaseFragment {
 
                         Log.d(TAG, "sdp : " + new Gson().toJson(sessionDescription));
 
+                        SockerIO.emit(
+                                SockerIO.EVENT_OFFER,
+                                new OfferModel(
+                                        matchModel.username,
+                                        sessionDescription
+                                )
+                        );
                         setLocalDescription(sessionDescription);
                     }
 
@@ -246,7 +280,7 @@ public class HomeFragment extends BaseFragment {
                         super.onSetFailure(s);
                     }
                 },
-                getAudioConstraints()
+                defaultPcConstraints()
         );
 
     }
@@ -259,24 +293,10 @@ public class HomeFragment extends BaseFragment {
                     public void onSetSuccess() {
                         super.onSetSuccess();
 
-                        switch (matchModel.requestType){
+                        switch (matchModel.requestType) {
                             case "Offer":
-                                SockerIO.emit(
-                                        SockerIO.EVENT_OFFER,
-                                        new OfferModel(
-                                                matchModel.username,
-                                                sessionDescription
-                                        )
-                                );
                                 break;
                             case "Answer":
-                                SockerIO.emit(
-                                        SockerIO.EVENT_ANSWER,
-                                        new OfferModel(
-                                                matchModel.username,
-                                                sessionDescription
-                                        )
-                                );
                                 break;
                             default:
                                 throw new RuntimeException("type 에러 ㅅㄱ" + matchModel.requestType);
@@ -287,16 +307,16 @@ public class HomeFragment extends BaseFragment {
         );
     }
 
-    private void setRemoteDescription(SessionDescription sessionDescription){
+    private void setRemoteDescription(SessionDescription sessionDescription) {
         Log.d(TAG, "setRemoteDescription");
         peerConnection.setRemoteDescription(
-                new BaseSdpObserver(){
+                new BaseSdpObserver() {
 
                     @Override
                     public void onSetSuccess() {
                         super.onSetSuccess();
 
-                        switch (matchModel.requestType){
+                        switch (matchModel.requestType) {
                             case "Offer":
 
                                 break;
@@ -330,10 +350,18 @@ public class HomeFragment extends BaseFragment {
                     @Override
                     public void onCreateSuccess(SessionDescription sessionDescription) {
                         super.onCreateSuccess(sessionDescription);
+
+                        SockerIO.emit(
+                                SockerIO.EVENT_ANSWER,
+                                new OfferModel(
+                                        matchModel.username,
+                                        sessionDescription
+                                )
+                        );
                         setLocalDescription(sessionDescription);
                     }
                 },
-                getAudioConstraints()
+                defaultPcConstraints()
         );
     }
 
@@ -411,7 +439,7 @@ public class HomeFragment extends BaseFragment {
         ArrayList<PeerConnection.IceServer> iceServerList = new ArrayList<>();
         iceServerList.add(new PeerConnection.IceServer("stun:turn01.uswest.xirsys.com"));
         iceServerList.add(new PeerConnection.IceServer("turn:turn01.uswest.xirsys.com:80?transport=udp", "142438b2-9b08-11e7-82e9-6397bf22c3d4", "1424393e-9b08-11e7-80c4-93bd5e1f0de0"));
-        iceServerList.add(new PeerConnection.IceServer("turns:turn01.uswest.xirsys.com:5349?transport=tcp","142438b2-9b08-11e7-82e9-6397bf22c3d4","1424393e-9b08-11e7-80c4-93bd5e1f0de0"));
+        iceServerList.add(new PeerConnection.IceServer("turns:turn01.uswest.xirsys.com:5349?transport=tcp", "142438b2-9b08-11e7-82e9-6397bf22c3d4", "1424393e-9b08-11e7-80c4-93bd5e1f0de0"));
 
         return iceServerList;
     }
@@ -466,5 +494,13 @@ public class HomeFragment extends BaseFragment {
             builder.append(text);
         }
         return builder.toString();
+    }
+
+    private static MediaConstraints defaultPcConstraints() {
+        MediaConstraints pcConstraints = new MediaConstraints();
+        pcConstraints.optional.add(new MediaConstraints.KeyValuePair("DtlsSrtpKeyAgreement", "true"));
+        pcConstraints.mandatory.add(new MediaConstraints.KeyValuePair("OfferToReceiveAudio", "true"));
+        pcConstraints.mandatory.add(new MediaConstraints.KeyValuePair("OfferToReceiveVideo", "false"));
+        return pcConstraints;
     }
 }

@@ -51,5 +51,6 @@ public class SockerIO {
     public static final String EVENT_MATCHING = "matching";
     public static final String EVENT_OFFER = "offer";
     public static final String EVENT_ANSWER = "answer";
+    public static final String EVENT_ICECANDIDATE = "icecandidate";
 
 }
